@@ -1,0 +1,26 @@
+body {
+  background: #0f172a;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+}
+
+#tierlist {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.tier-column {
+  background: #1e293b;
+  padding: 10px;
+  border-radius: 10px;
+  width: 150px;
+}
+
+.player {
+  background: #334155;
+  margin: 4px;
+  padding: 5px;
+  border-radius: 5px;
+}
