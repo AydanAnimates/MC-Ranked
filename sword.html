@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<div>
+  <a href="index.html">Overall</a> |
+  <a href="axe.html">Axe</a> |
+  <a href="sword.html">Sword</a> |
+  <a href="nethpot.html">NethPot</a>
+</div>
+<html>
+<head>
+  <title>Sword PvP Rankings</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Sword PvP Tierlist</h1>
+
+<div id="tierlist"></div>
+
+<script>
+async function loadData() {
+  const res = await fetch("data.json");
+  const data = await res.json();
+  return data.players;
+}
+
+function getTier(elo) {
+  if (elo >= 2100) return "HT1";
+  if (elo >= 1800) return "T1";
+  if (elo >= 1600) return "T2";
+  if (elo >= 1400) return "T3";
+  if (elo >= 1200) return "T4";
+  if (elo >= 1000) return "HT5";
+  return "LT5";
+}
+
+function splitTier(tier) {
+  if (tier.startsWith("HT")) return "HT";
+  return "LT";
+}
+
+function baseTier(tier) {
+  return tier.replace("HT", "").replace("LT", "");
+}
+
+function createTierColumns(players) {
+  const tiers = {
+    "1": { HT: [], LT: [] },
+    "2": { HT: [], LT: [] },
+    "3": { HT: [], LT: [] },
+    "4": { HT: [], LT: [] },
+    "5": { HT: [], LT: [] }
+  };
+
+  players.forEach(p => {
+    const elo = p.elo.sword;
+    const tier = getTier(elo);
+    const type = splitTier(tier);
+    const base = baseTier(tier);
+
+    tiers[base][type].push({ name: p.name, elo });
+  });
+
+  return tiers;
+}
+
+function renderTierlist(tiers) {
+  const container = document.getElementById("tierlist");
+
+  for (let t = 1; t <= 5; t++) {
+    const col = document.createElement("div");
+    col.className = "tier-column";
+
+    col.innerHTML = `<h2>T${t}</h2>`;
+
+    ["HT", "LT"].forEach(type => {
+      const section = document.createElement("div");
+      section.innerHTML = `<h3>${type}${t}</h3>`;
+
+      tiers[t][type]
+        .sort((a,b) => b.elo - a.elo)
+        .forEach(p => {
+          const el = document.createElement("div");
+          el.className = "player";
+          el.innerText = `${p.name} (${p.elo})`;
+          section.appendChild(el);
+        });
+
+      col.appendChild(section);
+    });
+
+    container.appendChild(col);
+  }
+}
+
+loadData().then(players => {
+  const tiers = createTierColumns(players);
+  renderTierlist(tiers);
+});
+</script>
+
+</body>
+</html>
