@@ -4,8 +4,16 @@
       "name": "AydanAnima",
       "elo": {
         "axe": 1500,
-        "sword": 1300,
-        "nethpot": 1100
+        "sword": 1200,
+        "nethpot": 1000
+      }
+    },
+    {
+      "name": "Player2",
+      "elo": {
+        "axe": 1400,
+        "sword": 1100,
+        "nethpot": 1000
       }
     }
   ]
