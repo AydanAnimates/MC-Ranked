@@ -1,0 +1,12 @@
+{
+  "players": [
+    {
+      "name": "AydanAnima",
+      "elo": {
+        "axe": 1500,
+        "sword": 1300,
+        "nethpot": 1100
+      }
+    }
+  ]
+}
