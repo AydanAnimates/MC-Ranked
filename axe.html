@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<div>
-  <a href="index.html">Overall</a> |
-  <a href="axe.html">Axe</a> |
-  <a href="sword.html">Sword</a> |
-  <a href="nethpot.html">NethPot</a>
-</div>
 <html>
 <head>
   <title>Axe PvP Rankings</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  
+  <div>
+  <a href="index.html">Overall</a> |
+  <a href="axe.html">Axe</a> |
+  <a href="sword.html">Sword</a> |
+  <a href="nethpot.html">NethPot</a>
+</div>
 
 <h1>Axe PvP Tierlist</h1>
 
@@ -52,7 +53,7 @@ function createTierColumns(players) {
   };
 
   players.forEach(p => {
-    const elo = p.elo.axe;
+    const elo = p.elo.axe ?? 100;
     const tier = getTier(elo);
     const type = splitTier(tier);
     const base = baseTier(tier);
